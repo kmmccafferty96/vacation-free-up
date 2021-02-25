@@ -1,8 +1,5 @@
 $mat-primary: (
-  main: #0e1e2f,
-  lighter: #b7bcc1,
-  darker: #08121d,
-  200: #0e1e2f,
+  main: #222021,
   // For slide toggle,
   contrast:
     (
@@ -14,10 +11,7 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 $mat-accent: (
-  main: #9c2d19,
-  lighter: #e1c0ba,
-  darker: #801c0e,
-  200: #9c2d19,
+  main: #d26333,
   // For slide toggle,
   contrast:
     (

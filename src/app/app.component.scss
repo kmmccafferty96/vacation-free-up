@@ -1,0 +1,64 @@
+.app-wrapper {
+  background-color: #fafafa;
+  padding-bottom: 75px;
+}
+
+.background {
+  padding: 20px 0 0 0;
+  position: relative;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: url('../assets/blue.jpg') no-repeat center top;
+    background-size: cover;
+    opacity: 0.7;
+    content: '';
+    z-index: 0;
+  }
+
+  .gradient {
+    &::before {
+      background: linear-gradient(180deg, hsla(0, 0%, 98%, 0) 0, #fafafa);
+      position: absolute;
+      top: 51%;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      content: '';
+      z-index: 0;
+    }
+  }
+
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+}
+
+.billboard {
+  border: 3px solid #d26333;
+  box-shadow: 0px 0px 10px 5px #222021;
+  margin-bottom: 30px;
+  max-width: 850px;
+  width: 100%;
+  pointer-events: none;
+}
+
+h1 {
+  font-size: 3em;
+  font-weight: bold;
+  line-height: 1em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 30px;
+}

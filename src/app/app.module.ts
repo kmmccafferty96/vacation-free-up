@@ -5,9 +5,10 @@ import { CommonModule } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
+import { DialogComponent, SurveyFormComponent } from './components/survey-form/survey-form.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, DialogComponent, SurveyFormComponent],
   imports: [CommonModule, BrowserModule, CoreModule, BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]

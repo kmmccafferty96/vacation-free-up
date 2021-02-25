@@ -1,0 +1,101 @@
+<mat-card>
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-vertical-stepper #stepper linear>
+
+      <!-- Please check the activities you are most interested in during your vacation. -->
+      <mat-step>
+        <ng-template matStepLabel>Activities</ng-template>
+        <label id="label_activities"
+          >Please check the activities you are most interested in during your vacation.</label
+        >
+        <div class="mat-checkbox-group">
+          <mat-checkbox
+            *ngFor="let activity of activities; let i = index"
+            [value]="activity"
+            (change)="onCheckboxChange($event)"
+            aria-labelledby="label_activities"
+            >{{ activity }}</mat-checkbox
+          >
+        </div>
+        <div>
+          <button mat-stroked-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+
+      <!-- Contact Information -->
+      <mat-step [stepControl]="form.controls.contactInformation && form.controls.recaptcha" errorMessage="Required">
+        <ng-template matStepLabel>Contact Information</ng-template>
+        <label>Please enter your contact information in order to receive your offer.</label>
+        <div formGroupName="contactInformation">
+          <div class="form-row">
+            <mat-form-field class="form-group col-md-6">
+              <mat-label>First Name</mat-label>
+              <input matInput type="text" formControlName="firstName" />
+            </mat-form-field>
+            <mat-form-field class="form-group col-md-6">
+              <mat-label>Last Name</mat-label>
+              <input matInput type="text" formControlName="lastName" />
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field class="form-group col-md-12">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="Ex. example@email.com" />
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field class="form-group col-md-12">
+              <mat-label>Address</mat-label>
+              <input matInput type="text" formControlName="address1" placeholder="Ex. 123 Main Street" />
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field class="form-group col-md-12">
+              <mat-label>Address 2</mat-label>
+              <input matInput type="text" formControlName="address2" />
+            </mat-form-field>
+          </div>
+          <div class="form-row">
+            <mat-form-field class="form-group col-md-4">
+              <mat-label>City</mat-label>
+              <input matInput type="text" formControlName="city" />
+            </mat-form-field>
+            <mat-form-field class="form-group col-md-4">
+              <mat-label>State</mat-label>
+              <select matNativeControl formControlName="state">
+                <option></option>
+                <option *ngFor="let state of states" [value]="state.abbreviation">
+                  {{ state.name }}
+                </option>
+              </select>
+            </mat-form-field>
+            <mat-form-field class="form-group col-md-4">
+              <mat-label>Zip</mat-label>
+              <input matInput type="text" formControlName="zip" maxlength="5" />
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="form-row">
+          <mat-checkbox formControlName="additionalSpecials" class="form-group col-md-12">
+            I would like to receive additional specials and promotions.
+          </mat-checkbox>
+        </div>
+        <div class="d-flex justify-content-sm-center recaptcha-container">
+          <re-captcha formControlName="recaptcha" siteKey="6Lf9_s0ZAAAAANnls_uBTtR4j5CX1h_7OQgXxeve"></re-captcha>
+        </div>
+      </mat-step>
+    </mat-vertical-stepper>
+    <div class="submit-container">
+      <button
+        mat-flat-button
+        type="submit"
+        [class.spinner]="loading"
+        [disabled]="form.invalid || loading"
+        color="primary"
+        class="submit-btn"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</mat-card>

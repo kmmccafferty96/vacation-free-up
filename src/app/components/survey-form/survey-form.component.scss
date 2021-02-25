@@ -1,0 +1,64 @@
+.sf__main-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-radio-group,
+.mat-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+
+  mat-radio-button,
+  mat-checkbox {
+    margin-left: 10px;
+  }
+}
+
+::ng-deep .mat-radio-label-content,
+::ng-deep .mat-checkbox-label {
+  white-space: normal !important;
+}
+
+.recaptcha-container {
+  margin-top: 20px;
+
+  @media screen and (max-width: 425px) {
+    re-captcha {
+      transform: scale(0.75);
+      transform-origin: 0 0;
+    }
+  }
+}
+
+.submit-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submit-btn {
+  transition: color 0.75s, background-color 0.75s;
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}
