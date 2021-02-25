@@ -1,0 +1,50 @@
+$mat-primary: (
+  main: #0e1e2f,
+  lighter: #b7bcc1,
+  darker: #08121d,
+  200: #0e1e2f,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
+);
+$theme-primary: mat-palette($mat-primary, main, lighter, darker);
+
+$mat-accent: (
+  main: #9c2d19,
+  lighter: #e1c0ba,
+  darker: #801c0e,
+  200: #9c2d19,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
+);
+$theme-accent: mat-palette($mat-accent, main, lighter, darker);
+
+$mat-warn: (
+  main: #ff0000,
+  lighter: #ffb3b3,
+  darker: #ff0000,
+  200: #ff0000,
+  // For slide toggle,
+  contrast:
+    (
+      main: $light-primary-text,
+      lighter: $dark-primary-text,
+      darker: $light-primary-text
+    )
+);
+$theme-warn: mat-palette($mat-warn, main, lighter, darker);
+
+$vfu-primary: mat-palette($mat-indigo, 800, 300, 900);
+$vfu-accent: mat-palette($mat-light-blue);
+$vfu-warn: mat-palette($mat-pink, 600);
+
+$vfu-theme: mat-light-theme($theme-primary, $theme-accent, $theme-warn);
