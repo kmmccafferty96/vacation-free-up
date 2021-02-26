@@ -19,9 +19,10 @@ import { states } from './states';
 })
 export class SurveyFormComponent implements OnInit {
   form: FormGroup = new FormGroup({});
-  loading = false;
-  activities: string[] = [];
   states = states;
+  activities: string[] = [];
+  loading = false;
+  areMultipleActivitiesSelected = false;
 
   get activitiesFormArray(): FormArray {
     return this.form.controls.activities as FormArray;
@@ -47,12 +48,20 @@ export class SurveyFormComponent implements OnInit {
         i++;
       });
     }
+
+    this.areMultipleActivitiesSelected = this.activitiesFormArray.length > 1;
   }
 
   /** Submits the survey response. */
   submitForm(): void {
     this.loading = true;
     this.form.controls.dateTimeTaken.setValue(new Date().toUTCString());
+
+    // If only one activity is selected, set that activity to the most interesting activity.
+    if (this.activitiesFormArray.length === 1) {
+      this.form.controls.mostInterestingActivity.setValue(this.activitiesFormArray.value[0]);
+    }
+
     this.firebaseService
       .addSurveySubmission(this.form.value)
       .then(
@@ -65,6 +74,7 @@ export class SurveyFormComponent implements OnInit {
   private initializeForm(): void {
     this.form = this.formBuilder.group({
       activities: this.formBuilder.array([]),
+      mostInterestingActivity: [undefined, [Validators.required]],
       contactInformation: this.formBuilder.group({
         firstName: [undefined, [Validators.required]],
         lastName: [undefined, [Validators.required]],

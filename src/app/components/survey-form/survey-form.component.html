@@ -1,7 +1,6 @@
 <mat-card>
   <form [formGroup]="form" (ngSubmit)="submitForm()">
     <mat-vertical-stepper #stepper linear>
-
       <!-- Please check the activities you are most interested in during your vacation. -->
       <mat-step>
         <ng-template matStepLabel>Activities</ng-template>
@@ -18,8 +17,32 @@
           >
         </div>
         <div>
-          <button mat-stroked-button matStepperNext type="button">Next</button>
+          <button mat-stroked-button matStepperNext type="button" [disabled]="activitiesFormArray.length === 0">
+            Next
+          </button>
         </div>
+      </mat-step>
+
+      <!-- Most interesting activity -->
+      <mat-step
+        *ngIf="areMultipleActivitiesSelected"
+        [stepControl]="form.controls.mostInterestingActivity"
+        errorMessage="Question Required"
+      >
+        <ng-template matStepLabel>Most Interesting Activity</ng-template>
+        <label id="label_mostInterestingActivity"
+          >Out of the activities that you selected, which are listed below, please select one that you are most
+          interested in receiving free or discounted vacation offers for.</label
+        >
+        <mat-radio-group
+          formControlName="mostInterestingActivity"
+          aria-labelledby="label_mostInterestingActivity"
+          (change)="stepper.next()"
+        >
+          <mat-radio-button *ngFor="let activity of activitiesFormArray.value; let i = index" [value]="activity">{{
+            activity
+          }}</mat-radio-button>
+        </mat-radio-group>
       </mat-step>
 
       <!-- Contact Information -->
