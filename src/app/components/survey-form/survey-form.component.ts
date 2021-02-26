@@ -49,7 +49,13 @@ export class SurveyFormComponent implements OnInit {
       });
     }
 
-    this.areMultipleActivitiesSelected = this.activitiesFormArray.length > 1;
+    if (this.activitiesFormArray.length > 1) {
+      this.areMultipleActivitiesSelected = true;
+      this.form.controls.mostInterestingActivity.setValidators(Validators.required);
+    } else {
+      this.areMultipleActivitiesSelected = false;
+      this.form.controls.mostInterestingActivity.clearValidators();
+    }
   }
 
   /** Submits the survey response. */
@@ -74,7 +80,7 @@ export class SurveyFormComponent implements OnInit {
   private initializeForm(): void {
     this.form = this.formBuilder.group({
       activities: this.formBuilder.array([]),
-      mostInterestingActivity: [undefined, [Validators.required]],
+      mostInterestingActivity: [undefined],
       contactInformation: this.formBuilder.group({
         firstName: [undefined, [Validators.required]],
         lastName: [undefined, [Validators.required]],
