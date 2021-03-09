@@ -88,7 +88,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     return null;
   });
 
-exports.scheduledSendOfferEmail = functions.pubsub.schedule('14 20 * * *').onRun(async (context) => {
+exports.scheduledSendOfferEmail = functions.pubsub.schedule('38 19 * * *').onRun(async (context) => {
   var ref = database.ref('survey-submission-list');
 
   var surveyEmails = [];
@@ -141,6 +141,7 @@ exports.scheduledSendOfferEmail = functions.pubsub.schedule('14 20 * * *').onRun
             <p>
             ${getOfferText(activity, false)}
             </p>
+            ${getImageHTML(activity)}
             <hr>
             <p>
               Visit ${isPine ? `<a href="https://www.pinemountainresort.com/">www.pinemountainresort.com</a>` : `<a href="https://www.thefourseasonswi.com/">www.thefourseasonswi.com</a>`} for more information on lodging, food, and activities prior to your visit.
@@ -249,6 +250,50 @@ function appendSheetRow(jwt, apiKey, spreadsheetId, range, row) {
 function isPineMountain(activity) {
   const pmActivities = ['Golf', 'White Water Rafting', 'Skiing'];
   return pmActivities.includes(activity);
+}
+
+function getImageHTML(activity) {
+  const imageFileName = getImageFileName(activity);
+  let html = '';
+
+  if (imageFileName) {
+    html = `<div style="text-align:center;">
+      <img style="width:100%;max-width:600px;border:4px solid #a3862f;" src="https://www.vacationfreeup.com/assets/activities/${imageFileName}" />
+    </div>`;
+  }
+
+  return html;
+}
+
+function getImageFileName(activity) {
+  switch (activity) {
+    case 'Golf':
+      return ``;
+
+    case 'White Water Rafting':
+      return `rafting.jpg`;
+
+    case 'Waterfall Guided Tour':
+      return `waterfall.jpg`;
+
+    case 'Fine Dining':
+      return ``;
+
+    case 'Skiing':
+      return `skiing.jpg`;
+
+    case 'ATV/UTV/Snowmobiling':
+      return `ATV.jpg`;
+
+    case 'Romantic Getaway':
+      return ``;
+
+    case 'Outdoor Activities - Biking, Canoeing, Kayaking, Hiking':
+      return `biking.jpg`;
+
+    case 'Boating':
+      return ``;
+  }
 }
 
 function getOfferText(activity, isPlainText) {
