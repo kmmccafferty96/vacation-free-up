@@ -3,7 +3,7 @@ import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({ providedIn: 'root' })
 export class FirebaseService {
-  dbRef: firebase.database.Reference;
+  dbRef: any;
 
   constructor(private db: AngularFireDatabase) {
     this.dbRef = this.db.database.ref('survey-submission-list');

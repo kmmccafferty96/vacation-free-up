@@ -88,7 +88,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     return null;
   });
 
-exports.scheduledSendOfferEmail = functions.pubsub.schedule('10 10 * * *').onRun(async (context) => {
+exports.scheduledSendOfferEmail = functions.pubsub.schedule('10 11 * * *').onRun(async (context) => {
   var ref = database.ref('survey-submission-list');
 
   var surveyEmails = [];
