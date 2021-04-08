@@ -88,7 +88,7 @@ exports.sendSurveyConfirmationEmail = functions.database
     return null;
   });
 
-exports.scheduledSendOfferEmail = functions.pubsub.schedule('38 19 * * *').onRun(async (context) => {
+exports.scheduledSendOfferEmail = functions.pubsub.schedule('10 10 * * *').onRun(async (context) => {
   var ref = database.ref('survey-submission-list');
 
   var surveyEmails = [];
@@ -248,7 +248,7 @@ function appendSheetRow(jwt, apiKey, spreadsheetId, range, row) {
 
 /** Returns true if the offer is for Pine Mountain, false if it's for Four Seasons. */
 function isPineMountain(activity) {
-  const pmActivities = ['Golf', 'White Water Rafting', 'Skiing'];
+  const pmActivities = ['White Water Rafting'];
   return pmActivities.includes(activity);
 }
 
@@ -268,7 +268,7 @@ function getImageHTML(activity) {
 function getImageFileName(activity) {
   switch (activity) {
     case 'Golf':
-      return ``;
+      return `golf.jpg`;
 
     case 'White Water Rafting':
       return `rafting.jpg`;
@@ -277,7 +277,7 @@ function getImageFileName(activity) {
       return `waterfall.jpg`;
 
     case 'Fine Dining':
-      return ``;
+      return `dining.jpg`;
 
     case 'Skiing':
       return `skiing.jpg`;
@@ -286,24 +286,20 @@ function getImageFileName(activity) {
       return `ATV.jpg`;
 
     case 'Romantic Getaway':
-      return ``;
+      return `romantic.jpg`;
 
     case 'Outdoor Activities - Biking, Canoeing, Kayaking, Hiking':
       return `biking.jpg`;
 
     case 'Boating':
-      return ``;
+      return `boating.jpg`;
   }
 }
 
 function getOfferText(activity, isPlainText) {
   switch (activity) {
     case 'Golf':
-      return `(2) 18-hole rounds of golf at Timberstone Golf Course ($238 value) when you book any 2-night weekday
-      (Sunday – Thursday) stay at Pine Mountain Ski & Golf Resort. Use Code ${formatRedemptionCode('PMGOLF2021', isPlainText)} at time of
-      booking.
-      ${getDoubleLineBreak(isPlainText)}
-      Two days of unlimited golf for 2 guests ($200 value) at The Rivers Golf Course when you book any 2-night
+      return `Two days of unlimited golf for 2 guests ($200 value) at The Rivers Golf Course when you book any 2-night
       weekday (Sunday – Thursday) stay at the Four Seasons Island Resort. Use Code ${formatRedemptionCode('FSGOLF2021', isPlainText)} at time of booking.`;
 
     case 'White Water Rafting':
@@ -322,7 +318,7 @@ function getOfferText(activity, isPlainText) {
       stay at Four Seasons Island Resort. Use code ${formatRedemptionCode('FourSeasonsDR100', isPlainText)} at time of booking.`;
 
     case 'Skiing':
-      return `(2) free lift tickets to Pine Mountain Ski & Golf Resort with purchase of a 2-night weekday (Sunday – Thursday)
+      return `(2) free lift tickets to Pine Mountain Ski & Golf Resort with purchase of a 2-night weekend (Friday & Saturday)
       stay at Four Seasons Island Resort. Use code ${formatRedemptionCode('PMSKIING', isPlainText)} at time of booking.`;
 
     case 'ATV/UTV/Snowmobiling':
@@ -360,13 +356,11 @@ function getRulesAndRegulations() {
     'Limited to 1 special per household.',
     'Cannot be combined with any other specials.',
     'Must be booked 21 days in advance, subject to availability.',
-    'Gift card or voucher will be presented at Front Desk, upon check in.',
     'Must bring copy of offer, valid ID required, must be 21 or older.',
-    'Limit 2 adults per lodge room, 4 adults in condos, 6 adults in Alpine House.',
-    'Valid for any room type.',
+    'Limit 2 adults per lodge room.',
     'Excludes holiday weekends.',
     'Gift cards are valid for food and beverage only.',
-    'Reservation must be booked within 14 days of receiving this offer.',
+    'Reservation must be booked within 30 days of receiving this offer.',
     'Reservations are cancelable within 30 days of stay for any reason.',
     'Excludes daily resort fee if applicable.'
   ];
