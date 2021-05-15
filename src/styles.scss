@@ -1,6 +1,6 @@
 // Material
-@import '~@angular/material/theming';
-@include mat-core();
+@use '~@angular/material' as mat;
+@include mat.core();
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap-reboot';
@@ -17,11 +17,10 @@
 }
 
 .default-theme {
-  @include angular-material-theme($vfu-theme);
+  @include mat.all-component-themes($vfu-theme);
   @include custom-components-theme($vfu-theme);
 }
 
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html,
 body {
